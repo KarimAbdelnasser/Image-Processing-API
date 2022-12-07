@@ -42,13 +42,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var server_1 = __importDefault(require("../server"));
 var supertest_1 = __importDefault(require("supertest"));
 var request = (0, supertest_1.default)(server_1.default);
+var resize_1 = __importDefault(require("../utility/resize"));
+var path_1 = __importDefault(require("path"));
 describe('Test endpoint responses', function () {
-    it('Should return a status code 200', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it('Should return a status code 200, response with the original image if the width or the height are missing', function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, request.get('/img').query({
                         filename: 'icelandwaterfall',
+                    })];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(200);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it("Should return a status code 200, response with the original image if the width or the height isn't a valid number", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/img').query({
+                        filename: 'icelandwaterfall',
+                        width: 0,
+                        height: 200,
                     })];
                 case 1:
                     response = _a.sent();
@@ -73,7 +91,7 @@ describe('Test endpoint responses', function () {
             }
         });
     }); });
-    it('Should return a status code 400', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it('Should return a status code 400, response with a bad request error for missing the filename', function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -98,6 +116,44 @@ describe('Test endpoint responses', function () {
                         .expect('Content-Type', /image/)];
                 case 1:
                     _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('Should return a status code 400, response with a bad request error because of the invalid filename', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/img?filename=fjords')];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(400);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
+describe('test the resizing function', function () {
+    it('should resize the selected image successfully and be truthy', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var resizing;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, resize_1.default)(path_1.default.resolve("./dist/images/fjord.jpg"), 100, 100, path_1.default.resolve("./dist/thumb/fjord100100_thumb.jpg"))];
+                case 1:
+                    resizing = _a.sent();
+                    expect(resizing).toBeTruthy;
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('the resize function should not work and return false because of the invalid filename', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var resizing;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, resize_1.default)(path_1.default.resolve("./dist/images/fjords.jpg"), 100, 100, path_1.default.resolve("./dist/thumb/fjord100100_thumb.jpg"))];
+                case 1:
+                    resizing = _a.sent();
+                    expect(resizing).toBeFalsy;
                     return [2 /*return*/];
             }
         });

@@ -39,60 +39,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.router = void 0;
-var express_1 = __importDefault(require("express"));
-var router = express_1.default.Router();
-exports.router = router;
-var fs_1 = require("fs");
-var path_1 = __importDefault(require("path"));
-var verifyCache_1 = require("../middleware/verifyCache");
-var resize_1 = __importDefault(require("../utility/resize"));
-var fileExist_1 = __importDefault(require("../utility/fileExist"));
-router.get('/img', verifyCache_1.verifyCache, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var filename, chosenWidth, chosenHeight, exist, cacheKey, imgPath, newImgPath, data;
+var sharp_1 = __importDefault(require("sharp"));
+var resize = function (existPath, width, height, thumbPath) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                filename = req.query.filename;
-                chosenWidth = Number(req.query.width);
-                chosenHeight = Number(req.query.height);
-                if (!filename) {
-                    return [2 /*return*/, res
-                            .status(400)
-                            .send("You have to select one of the existed images by put image's name in the query parameters !")];
-                }
-                return [4 /*yield*/, (0, fileExist_1.default)(path_1.default.resolve("./dist/images/".concat(filename, ".jpg")))];
+            case 0: return [4 /*yield*/, (0, sharp_1.default)(existPath)
+                    .resize({
+                    width: width,
+                    height: height,
+                })
+                    .toFile(thumbPath)
+                    .then(function () { return true; })
+                    .catch(function () { return false; })];
             case 1:
-                exist = _a.sent();
-                if (!exist) {
-                    return [2 /*return*/, res
-                            .status(400)
-                            .send("Could not find an image with the given filename!")];
-                }
-                else if (!chosenWidth ||
-                    !chosenHeight ||
-                    isNaN(chosenWidth) ||
-                    isNaN(chosenHeight) ||
-                    chosenWidth <= 0 ||
-                    chosenHeight <= 0) {
-                    console.log("No width or height is given, send original image!");
-                    return [2 /*return*/, res
-                            .status(200)
-                            .setHeader('Content-Type', 'image/jpg')
-                            .sendFile(path_1.default.resolve("./dist/images/".concat(filename, ".jpg")))];
-                }
-                cacheKey = "".concat(filename).concat(chosenWidth).concat(chosenHeight);
-                imgPath = path_1.default.resolve("./dist/images/".concat(filename, ".jpg"));
-                newImgPath = path_1.default.resolve("./dist/thumb/".concat(filename).concat(chosenWidth).concat(chosenHeight, "_thumb.jpg"));
-                return [4 /*yield*/, (0, resize_1.default)(imgPath, chosenWidth, chosenHeight, newImgPath)];
-            case 2:
                 _a.sent();
-                return [4 /*yield*/, fs_1.promises.readFile(newImgPath)];
-            case 3:
-                data = _a.sent();
-                verifyCache_1.cache.set(cacheKey, data);
-                res.status(201).setHeader('Content-Type', 'image/jpg').sendFile(newImgPath);
                 return [2 /*return*/];
         }
     });
-}); });
+}); };
+exports.default = resize;

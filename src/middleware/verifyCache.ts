@@ -1,10 +1,7 @@
 import express from 'express';
 import NodeCache from 'node-cache';
 const cache = new NodeCache();
-
-interface myQuery {
-  filename?: string;
-}
+import { myQuery } from '../routes/imgRoute';
 
 const verifyCache = (
   req: express.Request,
@@ -31,4 +28,4 @@ const verifyCache = (
     console.log(err);
   }
 };
-export { verifyCache, cache, myQuery };
+export { verifyCache, cache };
