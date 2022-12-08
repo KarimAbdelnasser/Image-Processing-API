@@ -83,7 +83,7 @@ router.get('/img', verifyCache_1.verifyCache, function (req, res) { return __awa
                 }
                 cacheKey = "".concat(filename, "-").concat(chosenWidth, "-").concat(chosenHeight);
                 imgPath = path_1.default.join(__dirname, '..', '..', 'dist', 'images', "".concat(filename, ".jpg"));
-                newImgPath = path_1.default.join(__dirname, '..', '..', 'dist', 'thumb', "".concat(filename, "-").concat(chosenWidth, "-").concat(chosenHeight, "-thumb.jpg"));
+                newImgPath = path_1.default.join(__dirname, '..', '..', 'dist', 'thumb', "".concat(filename, "-").concat(chosenWidth, "-").concat(chosenHeight, ".jpg"));
                 return [4 /*yield*/, (0, resize_1.default)(imgPath, chosenWidth, chosenHeight, newImgPath)];
             case 2:
                 _a.sent();

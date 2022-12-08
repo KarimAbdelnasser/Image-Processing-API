@@ -53,7 +53,7 @@ describe('test the resizing function', () => {
       path.resolve(`./dist/images/fjord.jpg`),
       100,
       100,
-      path.resolve(`./dist/thumb/fjord100100-thumb.jpg`)
+      path.resolve(`./dist/thumb/fjord-100-100.jpg`)
     );
     expect(resizing).toBeTruthy;
   });
@@ -62,7 +62,7 @@ describe('test the resizing function', () => {
       path.resolve(`./dist/images/fjords.jpg`),
       100,
       100,
-      path.resolve(`./dist/thumb/fjord100100-thumb.jpg`)
+      path.resolve(`./dist/thumb/fjord-100-100.jpg`)
     );
     expect(resizing).toBeFalsy;
   });

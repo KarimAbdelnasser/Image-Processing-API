@@ -138,7 +138,7 @@ describe('test the resizing function', function () {
         var resizing;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, resize_1.default)(path_1.default.resolve("./dist/images/fjord.jpg"), 100, 100, path_1.default.resolve("./dist/thumb/fjord100100-thumb.jpg"))];
+                case 0: return [4 /*yield*/, (0, resize_1.default)(path_1.default.resolve("./dist/images/fjord.jpg"), 100, 100, path_1.default.resolve("./dist/thumb/fjord-100-100.jpg"))];
                 case 1:
                     resizing = _a.sent();
                     expect(resizing).toBeTruthy;
@@ -150,7 +150,7 @@ describe('test the resizing function', function () {
         var resizing;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, resize_1.default)(path_1.default.resolve("./dist/images/fjords.jpg"), 100, 100, path_1.default.resolve("./dist/thumb/fjord100100-thumb.jpg"))];
+                case 0: return [4 /*yield*/, (0, resize_1.default)(path_1.default.resolve("./dist/images/fjords.jpg"), 100, 100, path_1.default.resolve("./dist/thumb/fjord-100-100.jpg"))];
                 case 1:
                     resizing = _a.sent();
                     expect(resizing).toBeFalsy;

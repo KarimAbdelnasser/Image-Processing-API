@@ -66,7 +66,7 @@ router.get(
       '..',
       'dist',
       'thumb',
-      `${filename}-${chosenWidth}-${chosenHeight}-thumb.jpg`
+      `${filename}-${chosenWidth}-${chosenHeight}.jpg`
     );
     await resize(imgPath, chosenWidth, chosenHeight, newImgPath);
     const data = await fs.readFile(newImgPath);
