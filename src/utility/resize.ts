@@ -4,7 +4,7 @@ const resize = async (
   width: number,
   height: number,
   thumbPath: string
-) => {
+): Promise<void> => {
   await sharp(existPath)
     .resize({
       width,

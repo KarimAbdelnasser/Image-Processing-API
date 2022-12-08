@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Response } from 'express';
 const router = express.Router();
 import { promises as fs } from 'fs';
 import path from 'path';
@@ -13,7 +13,10 @@ interface myQuery {
 router.get(
   '/img',
   verifyCache,
-  async (req: express.Request, res: express.Response) => {
+  async (
+    req: express.Request,
+    res: express.Response
+  ): Promise<void | Response> => {
     const { filename } = req.query as myQuery;
     const chosenWidth = Number(req.query.width);
     const chosenHeight = Number(req.query.height);

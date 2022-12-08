@@ -7,7 +7,7 @@ const verifyCache = (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-) => {
+): unknown => {
   try {
     const { filename } = req.query as myQuery;
     const chosenWidth = Number(req.query.width);
