@@ -25,8 +25,9 @@ router.get(
         );
     }
     const exist = await fileExist(
-      path.resolve(`./dist/images/${filename}.jpg`)
+      path.join(__dirname, '..', '..', 'dist', 'images', `${filename}.jpg`)
     );
+
     if (!exist) {
       return res
         .status(400)
@@ -43,12 +44,26 @@ router.get(
       return res
         .status(200)
         .setHeader('Content-Type', 'image/jpg')
-        .sendFile(path.resolve(`./dist/images/${filename}.jpg`));
+        .sendFile(
+          path.join(__dirname, '..', '..', 'dist', 'images', `${filename}.jpg`)
+        );
     }
     const cacheKey = `${filename}${chosenWidth}${chosenHeight}`;
-    const imgPath = path.resolve(`./dist/images/${filename}.jpg`);
-    const newImgPath = path.resolve(
-      `./dist/thumb/${filename}${chosenWidth}${chosenHeight}_thumb.jpg`
+    const imgPath = path.join(
+      __dirname,
+      '..',
+      '..',
+      'dist',
+      'images',
+      `${filename}.jpg`
+    );
+    const newImgPath = path.join(
+      __dirname,
+      '..',
+      '..',
+      'dist',
+      'thumb',
+      `${filename}${chosenWidth}${chosenHeight}_thumb.jpg`
     );
     await resize(imgPath, chosenWidth, chosenHeight, newImgPath);
     const data = await fs.readFile(newImgPath);

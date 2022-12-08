@@ -1,9 +1,11 @@
 import { promises as fs } from 'fs';
 
-const fileExist = (path: string) => {
-  return fs
-    .access(path, fs.constants.F_OK)
-    .then(() => true)
-    .catch(() => false);
+const fileExist = async (path: string) => {
+  try {
+    return await fs.stat(path);
+  } catch (err) {
+    console.log(`${path} is not exist!`);
+    return false;
+  }
 };
 export default fileExist;

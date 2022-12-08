@@ -61,7 +61,7 @@ router.get('/img', verifyCache_1.verifyCache, function (req, res) { return __awa
                             .status(400)
                             .send("You have to select one of the existed images by put image's name in the query parameters !")];
                 }
-                return [4 /*yield*/, (0, fileExist_1.default)(path_1.default.resolve("./dist/images/".concat(filename, ".jpg")))];
+                return [4 /*yield*/, (0, fileExist_1.default)(path_1.default.join(__dirname, '..', "..", 'dist', 'images', "".concat(filename, ".jpg")))];
             case 1:
                 exist = _a.sent();
                 if (!exist) {
@@ -79,11 +79,11 @@ router.get('/img', verifyCache_1.verifyCache, function (req, res) { return __awa
                     return [2 /*return*/, res
                             .status(200)
                             .setHeader('Content-Type', 'image/jpg')
-                            .sendFile(path_1.default.resolve("./dist/images/".concat(filename, ".jpg")))];
+                            .sendFile(path_1.default.join(__dirname, '..', "..", 'dist', 'images', "".concat(filename, ".jpg")))];
                 }
                 cacheKey = "".concat(filename).concat(chosenWidth).concat(chosenHeight);
-                imgPath = path_1.default.resolve("./dist/images/".concat(filename, ".jpg"));
-                newImgPath = path_1.default.resolve("./dist/thumb/".concat(filename).concat(chosenWidth).concat(chosenHeight, "_thumb.jpg"));
+                imgPath = path_1.default.join(__dirname, '..', "..", 'dist', 'images', "".concat(filename, ".jpg"));
+                newImgPath = path_1.default.join(__dirname, '..', "..", 'dist', 'thumb', "".concat(filename).concat(chosenWidth).concat(chosenHeight, "_thumb.jpg"));
                 return [4 /*yield*/, (0, resize_1.default)(imgPath, chosenWidth, chosenHeight, newImgPath)];
             case 2:
                 _a.sent();
