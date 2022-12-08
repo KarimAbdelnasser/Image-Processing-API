@@ -12,7 +12,7 @@ var verifyCache = function (req, res, next) {
         var filename = req.query.filename;
         var chosenWidth = Number(req.query.width);
         var chosenHeight = Number(req.query.height);
-        var cacheKey = "".concat(filename).concat(chosenWidth).concat(chosenHeight);
+        var cacheKey = "".concat(filename, "-").concat(chosenWidth, "-").concat(chosenHeight);
         if (cache.has(cacheKey)) {
             console.log("cached image with name ".concat(cacheKey, " has been found"));
             return res

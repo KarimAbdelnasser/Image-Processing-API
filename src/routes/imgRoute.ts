@@ -51,7 +51,7 @@ router.get(
           path.join(__dirname, '..', '..', 'dist', 'images', `${filename}.jpg`)
         );
     }
-    const cacheKey = `${filename}${chosenWidth}${chosenHeight}`;
+    const cacheKey = `${filename}-${chosenWidth}-${chosenHeight}`;
     const imgPath = path.join(
       __dirname,
       '..',
@@ -66,7 +66,7 @@ router.get(
       '..',
       'dist',
       'thumb',
-      `${filename}${chosenWidth}${chosenHeight}_thumb.jpg`
+      `${filename}-${chosenWidth}-${chosenHeight}-thumb.jpg`
     );
     await resize(imgPath, chosenWidth, chosenHeight, newImgPath);
     const data = await fs.readFile(newImgPath);

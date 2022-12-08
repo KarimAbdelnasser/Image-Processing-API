@@ -12,7 +12,7 @@ const verifyCache = (
     const { filename } = req.query as myQuery;
     const chosenWidth = Number(req.query.width);
     const chosenHeight = Number(req.query.height);
-    const cacheKey = `${filename}${chosenWidth}${chosenHeight}`;
+    const cacheKey = `${filename}-${chosenWidth}-${chosenHeight}`;
     if (cache.has(cacheKey)) {
       console.log(`cached image with name ${cacheKey} has been found`);
       return res
